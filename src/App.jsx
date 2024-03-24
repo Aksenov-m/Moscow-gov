@@ -1,11 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { fakeFetchData } from './api'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState([])
 
+  useEffect(() => {
+    async function preload() {
+      setLoading(true)
+      const { result } = await fakeFetchData()
+      setData(result)
+      setLoading(false)
+    }
+    preload()
+  }, [])
+
+  console.log(data)
   return (
     <>
       <div>
