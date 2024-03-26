@@ -1,0 +1,33 @@
+.circle {
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+}
+
+.small {
+  width: 23.7px;
+  height: 23.7px;
+}
+
+.large {
+  width: 27.53px;
+  height: 27.53px;
+}
+
+.red {
+  background-color: rgba(255, 122, 0, 1);
+}
+
+.grey {
+  background-color: rgba(173, 173, 173, 1);
+}
+
+.text {
+  line-height: 13.28px;
+  font-size: 10px;
+  position: absolute;
+  color: rgba(58, 58, 58, 1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

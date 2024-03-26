@@ -1,0 +1,49 @@
+.roundLine {
+  padding: 0;
+  border-radius: 50%; /* Сделает круглой */
+  border: 2.35px solid rgba(173, 173, 173, 1); /* Толщина и цвет линии */
+}
+
+.inside {
+  width: 256.05px; /* Ширина линии */
+  height: 256.05px; /* Высота линии */
+}
+
+.outside {
+  width: 256.05px; /* Ширина линии */
+  height: 256.05px; /* Высота линии */
+}
+
+.roundContainer {
+  position: relative;
+  width: 533.25px; /* Ширина контейнера */
+  height: 533.25px; /* Высота контейнера */
+}
+
+.outerCircle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ширина внешнего круга равна ширине контейнера */
+  height: 100%; /* Высота внешнего круга равна высоте контейнера */
+  border-radius: 50%; /* Делаем круглым */
+  border: 2.35px solid rgba(173, 173, 173, 1); /* Толщина и цвет границы */
+}
+
+.innerCircle {
+  position: absolute;
+  top: 25%; /* Отступ от верхнего края внешнего круга */
+  left: 25%; /* Отступ от левого края внешнего круга */
+  width: 50%; /* Ширина внутреннего круга */
+  height: 50%; /* Высота внутреннего круга */
+  border-radius: 50%; /* Делаем круглым */
+  border: 2.35px solid rgba(173, 173, 173, 1); /* Толщина и цвет границы */
+}
+
+/* .circleContainerSmall {
+  position: absolute;
+  width: 256.05px;
+  height: 256.05px;
+  top: 25%;
+  left: 25%;
+} */
