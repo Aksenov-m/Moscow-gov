@@ -21,6 +21,7 @@
 }
 
 .outerCircle {
+  z-index: -1;
   position: absolute;
   top: 0;
   left: 0;
@@ -31,6 +32,7 @@
 }
 
 .innerCircle {
+  z-index: -1;
   position: absolute;
   top: 25%; /* Отступ от верхнего края внешнего круга */
   left: 25%; /* Отступ от левого края внешнего круга */
