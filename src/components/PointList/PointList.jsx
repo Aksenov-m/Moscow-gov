@@ -18,6 +18,7 @@ const PointList = ({ data, allSkills, handleClick }) => {
         {data.map((item, index) => (
           <Circle
             key={index}
+            index={index}
             sizeClass={'small'}
             colorClass={'grey'}
             text={item.name}
@@ -32,6 +33,7 @@ const PointList = ({ data, allSkills, handleClick }) => {
         {allSkills.map((item, index) => (
           <Circle
             key={index}
+            index={index}
             sizeClass={'large'}
             colorClass={'red'}
             text={item}

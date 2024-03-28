@@ -1,7 +1,15 @@
 import React from 'react'
 import styles from './Circle.module.css' // Подключаем модульные стили
 
-function Circle({ sizeClass, colorClass, text, angle, radius, handleClick }) {
+function Circle({
+  sizeClass,
+  colorClass,
+  text,
+  angle,
+  radius,
+  handleClick,
+  index,
+}) {
   // Преобразуем угол в градусы
   const angleInDegrees = angle * (180 / Math.PI)
   const center = 23.7 / 2
@@ -39,7 +47,7 @@ function Circle({ sizeClass, colorClass, text, angle, radius, handleClick }) {
   }
 
   function circleClick(e) {
-    handleClick(angleInDegrees, e)
+    handleClick(angleInDegrees, index, e)
     // console.log(angleInDegrees, e.target)
   }
 
@@ -53,7 +61,7 @@ function Circle({ sizeClass, colorClass, text, angle, radius, handleClick }) {
       onClick={circleClick}
     >
       <p className={styles.text} style={textPosition}>
-        {text}
+        {index} {text}
       </p>
     </div>
   )
