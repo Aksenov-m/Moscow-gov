@@ -3,7 +3,7 @@ import styles from './PointList.module.css'
 import Circle from '../Circle/Circle'
 import LinesContainer from '../LinesContainer/LinesContainer'
 
-const PointList = ({ data, allSkills, handleClick }) => {
+const PointList = ({ data, allSkills, handleClick, handleLargeClick }) => {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
   const numPointsSmall = data.length // Количество точек внутренних
@@ -11,6 +11,7 @@ const PointList = ({ data, allSkills, handleClick }) => {
   const circleGap = 20 // Расстояние между кругами
   const centerYSmall = 533.25 / 2
   const centerYLarge = 533.25 / 2
+  // debugger
   return (
     <div className={styles.roundContainer}>
       {/* Рендерим круги маленького размера */}
@@ -18,10 +19,13 @@ const PointList = ({ data, allSkills, handleClick }) => {
         {data.map((item, index) => (
           <Circle
             key={index}
+            active={
+              typeof item === 'object' && item.active ? item.active : false
+            }
             index={index}
             sizeClass={'small'}
             colorClass={'grey'}
-            text={item.name}
+            text={item.name || item.text}
             angle={(Math.PI * 2 * index) / numPointsSmall} // Распределение точек по окружности
             radius={radiusSmall}
             handleClick={handleClick}
@@ -33,13 +37,14 @@ const PointList = ({ data, allSkills, handleClick }) => {
         {allSkills.map((item, index) => (
           <Circle
             key={index}
+            active={typeof item === 'object' && item.active && true}
             index={index}
             sizeClass={'large'}
             colorClass={'red'}
-            text={item}
-            angle={(Math.PI * 2 * index) / numPointsLarge} // Распределение точек по окружности
+            text={typeof item === 'object' ? item.text : item}
+            angle={(Math.PI * 2 * index) / numPointsLarge}
             radius={radiusLarge}
-            handleClick={handleClick}
+            handleClick={handleLargeClick}
           />
         ))}
       </div>

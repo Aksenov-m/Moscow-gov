@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Circle.module.css' // Подключаем модульные стили
 
 function Circle({
@@ -9,7 +9,9 @@ function Circle({
   radius,
   handleClick,
   index,
+  active,
 }) {
+  const [isActive, setIsActive] = useState(false)
   // Преобразуем угол в градусы
   const angleInDegrees = angle * (180 / Math.PI)
   const center = 23.7 / 2
@@ -46,17 +48,60 @@ function Circle({
       break
   }
 
+  // function activeClick(currentCircle) {
+  //   // Снимаем активность с предыдущего круга
+  //   const circles = document.querySelectorAll(`.${styles.circle}`)
+  //   circles.forEach((circle) => {
+  //     if (circle !== currentCircle) {
+  //       circle.classList.remove(styles.active)
+  //     }
+  //   })
+  // }
+
   function circleClick(e) {
-    handleClick(angleInDegrees, index, e)
-    // console.log(angleInDegrees, e.target)
+    const currentCircle = e.currentTarget
+
+    // Снимаем класс active с предыдущего круга
+    const circles = document.querySelectorAll(`.${styles.circle}`)
+    circles.forEach((circle) => {
+      if (circle !== currentCircle) {
+        circle.classList.remove(styles.active)
+      }
+    })
+
+    // Добавляем класс active к текущему кругу
+    currentCircle.classList.add(styles.active)
+
+    setIsActive(true)
+    handleClick(angle, index, e)
   }
+
+  // useEffect(() => {
+  //   activeClick()
+  // }, [isActive])
 
   // handleClick = { processPayment }
 
   // console.log(angleInDegrees, Math.sin(angleInDegrees))
+
+  // Добавляем классы green и redActive в зависимости от свойств active и radius
+  // let circleClasses = `${styles.circle} ${styles[sizeClass]} ${styles[colorClass]}`
+
+  // if (active && radius === 135.315) {
+  //   circleClasses += ` ${styles.green}`
+  // } else {
+  //   circleClasses += ` ${styles.redActive}`
+  // }
+
   return (
     <div
-      className={`${styles.circle} ${styles[sizeClass]} ${styles[colorClass]}`}
+      className={`${styles.circle} ${styles[sizeClass]} ${styles[colorClass]} ${
+        active && radius === 135.315
+          ? styles.green
+          : active && radius !== 135.315
+          ? styles.redActive
+          : ''
+      } ${isActive ? styles.active : ''}`}
       style={circleStyle}
       onClick={circleClick}
     >

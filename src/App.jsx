@@ -11,6 +11,7 @@ function App() {
   const [data, setData] = useState([])
   const [allSkills, setAllSkills] = useState([])
   const [circleInfo, setCircleInfo] = useState({})
+  const [circleLargeInfo, setcircleLargeInfo] = useState({})
   const [filteredData, setFilteredData] = useState([])
   const [filteredSkills, setFilteredSkills] = useState([])
 
@@ -19,8 +20,8 @@ function App() {
 
   // const k = arrConstraint / data.length // коэфициент
 
-  function replaceArrayPart(startMiddle, start, deleteCount, ...elem) {
-    const newArr = [...allSkills] // Создаем копию исходного массива
+  function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
+    const newArr = [...arr] // Создаем копию исходного массива
     if (startMiddle === 0 || start <= 0) {
       // Замена элементов с обоих концов массива
       for (let i = 0; i < Math.floor(elem.length / 2); i++) {
@@ -38,26 +39,10 @@ function App() {
       }
       return newArr
     } else {
-      debugger
       newArr.splice(start, deleteCount, ...elem)
       return newArr
-      // Используем splice для замены части массива}
-      // const newArr = [...arr] // Создаем копию исходного массива
     }
   }
-
-  // function replaceArrayPart(arr, start, deleteCount, ...elem) {
-  //   // Создаем копию исходного массива
-  //   const newArr = [...arr]
-
-  //   // Обрабатываем замену элементов, начиная с заданного индекса
-  //   for (let i = 0; i < deleteCount; i++) {
-  //     const index = (start + i) % newArr.length // Получаем текущий индекс с учетом прокрутки до начала массива
-  //     newArr[index] = elem[i] // Заменяем элемент в массиве
-  //   }
-
-  //   return newArr
-  // }
 
   useEffect(() => {
     async function preload() {
@@ -109,40 +94,49 @@ function App() {
     setCircleInfo(clickInfo)
   }
 
+  function handleCircleLargeClick(angle, index, e) {
+    const clickedText = e.target.innerText // Получаем текст элемента, на который произошел клик
+    const topValue = extractNumericValue(e.target.style.top) // Получаем значение top
+    const leftValue = extractNumericValue(e.target.style.left) // Получаем значение left
+    const clickInfo = {
+      angle: angle,
+      index: index,
+      text: clickedText,
+      y: topValue,
+      x: leftValue,
+    }
+    setcircleLargeInfo(clickInfo)
+  }
+
   useEffect(() => {
     if (data.length > 0 && circleInfo.index !== undefined) {
       const k = arrConstraint / data.length
       const i = circleInfo.index
       const element = data[i]
       if (element) {
-        const arrSkills = [...element.mainSkills, ...element.otherSkills]
+        const arrSkills = [
+          ...element.mainSkills.map((skill) => ({ text: skill, active: true })),
+          ...element.otherSkills.map((skill) => ({
+            text: skill,
+            active: true,
+          })),
+        ]
         const startMiddle = Math.round(i * k)
-        const startIndex = Math.round(i * k - (element.mainSkills.length + 1))
+        const startIndex = Math.round(i * k - element.mainSkills.length)
         // i === 0
         //   ? lastIndex - element.mainSkills.length
         //   : Math.round(i * k - element.mainSkills.length)
         const correctedStartIndex =
           startIndex < 0 ? allSkills.length + startIndex - 1 : startIndex
         const newSkills = replaceArrayPart(
+          allSkills,
           startMiddle,
           startIndex,
           arrSkills.length,
           ...arrSkills,
         )
-        debugger
+        // debugger
         setFilteredSkills(newSkills)
-        console.log(
-          startMiddle,
-          // newSkills,
-          // i,
-          // start,
-          // startIndex,
-          // element.mainSkills.length,
-          // correctedStartIndex,
-          // arrSkills.length,
-          // arrSkills,
-          // newSkills,
-        )
       }
     }
   }, [circleInfo, data])
@@ -153,6 +147,7 @@ function App() {
         data={filteredData}
         allSkills={filteredSkills}
         handleClick={handleCircleClick}
+        handleLargeClick={handleCircleLargeClick}
       ></PointList>
     </>
   )

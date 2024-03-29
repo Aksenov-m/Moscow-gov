@@ -16,11 +16,34 @@
 }
 
 .red {
+  background-color: rgba(255, 212, 173, 1);
+}
+
+.redActive {
   background-color: rgba(255, 122, 0, 1);
 }
 
 .grey {
   background-color: rgba(173, 173, 173, 1);
+}
+
+.green {
+  background-color: rgba(0, 163, 114, 1);
+}
+
+.active {
+  background-color: rgba(0, 163, 114, 1);
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  border: 1px solid rgba(0, 163, 114, 1); /* цвет и толщина границы */
+  border-radius: 50%; /* делает элемент круглым */
 }
 
 .text {
