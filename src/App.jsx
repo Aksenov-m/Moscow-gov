@@ -21,14 +21,14 @@ function App() {
   // const k = arrConstraint / data.length // коэфициент
 
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
+    debugger
     const newArr = [...arr] // Создаем копию исходного массива
-    if (startMiddle === 0 || start <= 0) {
+    if (startMiddle === 0) {
       // Замена элементов с обоих концов массива
       for (let i = 0; i < Math.floor(elem.length / 2); i++) {
         newArr[i] = elem[i] // Замена элементов с начала массива
         newArr[newArr.length - 1 - i] = elem[elem.length - 1 - i] // Замена элементов с конца массива
       }
-
       // Добавление центрального элемента elem к одному из концов массива
       if (elem.length % 2 !== 0) {
         // Добавление центрального элемента elem в начало массива
@@ -37,8 +37,41 @@ function App() {
         // Добавление центрального элемента elem в конец массива
         newArr.push(elem[Math.floor(elem.length / 2)])
       }
+      debugger
+      return newArr
+    }
+    if (start < 0) {
+      const absStartMiddle = Math.abs(startMiddle)
+
+      // Замена элементов из конца массива newArr
+      for (let i = 0; i < absStartMiddle; i++) {
+        newArr[newArr.length - 1 - i] = elem[i]
+      }
+
+      // Замена оставшихся элементов из массива elem в начале массива newArr
+      for (let i = absStartMiddle; i < elem.length; i++) {
+        newArr[i - absStartMiddle] = elem[i]
+      }
+
+      return newArr
+    } else if (elem.length + start > lastIndex) {
+      debugger
+      const startForward = start + elem.length - arr.length
+
+      // Замена элементов из начала массива newArr
+      for (let i = 0; i < startForward; i++) {
+        newArr[i] = elem[i]
+      }
+
+      // Замена оставшихся элементов из массива elem в конце массива newArr
+      for (let i = 0; i < elem.length - startForward; i++) {
+        newArr[newArr.length - elem.length + startForward + i] =
+          elem[startForward + i]
+      }
+
       return newArr
     } else {
+      debugger
       newArr.splice(start, deleteCount, ...elem)
       return newArr
     }
@@ -122,20 +155,20 @@ function App() {
           })),
         ]
         const startMiddle = Math.round(i * k)
-        const startIndex = Math.round(i * k - element.mainSkills.length)
+        const startIndex = Math.round(i * k - arrSkills.length / 2)
         // i === 0
         //   ? lastIndex - element.mainSkills.length
         //   : Math.round(i * k - element.mainSkills.length)
-        const correctedStartIndex =
-          startIndex < 0 ? allSkills.length + startIndex - 1 : startIndex
+        const correctedStartIndex = startIndex < 0 ? startIndex + 1 : startIndex
+        debugger
         const newSkills = replaceArrayPart(
           allSkills,
           startMiddle,
-          startIndex,
+          correctedStartIndex,
           arrSkills.length,
           ...arrSkills,
         )
-        // debugger
+        debugger
         setFilteredSkills(newSkills)
       }
     }
