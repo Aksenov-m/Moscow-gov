@@ -11,7 +11,10 @@ function Circle({
   index,
   active,
 }) {
+  const radiusSmall = 135.315
+  const radiusLarge = 266.625
   const [isActive, setIsActive] = useState(false)
+  const [isActiveLarge, setIsActiveLarge] = useState(false)
   // Преобразуем угол в градусы
   const angleInDegrees = angle * (180 / Math.PI)
   const center = 23.7 / 2
@@ -60,19 +63,34 @@ function Circle({
 
   function circleClick(e) {
     const currentCircle = e.currentTarget
+    debugger
 
     // Снимаем класс active с предыдущего круга
     const circles = document.querySelectorAll(`.${styles.circle}`)
+    const texts = document.querySelectorAll(`.${styles.text}`)
+
     circles.forEach((circle) => {
       if (circle !== currentCircle) {
-        circle.classList.remove(styles.active)
+        circle.classList.remove(
+          styles.active,
+          styles.activeLarge,
+          styles.redActive,
+        )
       }
     })
 
+    texts.forEach((text) => {
+      if (text.parentNode !== currentCircle) {
+        text.classList.remove(styles.activeText, styles.activeTextLarge)
+      }
+    })
     // Добавляем класс active к текущему кругу
-    currentCircle.classList.add(styles.active)
-
-    setIsActive(true)
+    // currentCircle.classList.add(styles.active)
+    if (radius === radiusSmall) {
+      setIsActive(true)
+    } else {
+      setIsActiveLarge(true)
+    }
     handleClick(angle, index, e)
   }
 
@@ -96,16 +114,26 @@ function Circle({
   return (
     <div
       className={`${styles.circle} ${styles[sizeClass]} ${styles[colorClass]} ${
-        active && radius === 135.315
+        active && radius === radiusSmall
           ? styles.green
-          : active && radius !== 135.315
+          : active && radius !== radiusSmall
           ? styles.redActive
           : ''
-      } ${isActive ? styles.active : ''}`}
+      } ${isActive ? styles.active : ''} ${
+        isActiveLarge ? styles.activeLarge : ''
+      }`}
       style={circleStyle}
       onClick={circleClick}
     >
-      <p className={styles.text} style={textPosition}>
+      <p
+        className={`${styles.text} ${
+          radius === radiusSmall ? styles.textLarge : styles.text
+        }
+        ${isActive ? styles.activeTextLarge : ''}
+        ${isActiveLarge ? styles.activeText : ''}
+        `}
+        style={textPosition}
+      >
         {index} {text}
       </p>
     </div>

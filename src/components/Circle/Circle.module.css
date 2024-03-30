@@ -35,6 +35,10 @@
   background-color: rgba(0, 163, 114, 1);
 }
 
+.activeLarge {
+  background-color: rgba(255, 122, 0, 1);
+}
+
 .active::after {
   content: '';
   position: absolute;
@@ -46,12 +50,37 @@
   border-radius: 50%; /* делает элемент круглым */
 }
 
+.activeLarge::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  border: 1px solid rgba(255, 122, 0, 1); /* цвет и толщина границы */
+  border-radius: 50%; /* делает элемент круглым */
+}
+
 .text {
   line-height: 13.28px;
   font-size: 10px;
   position: absolute;
-  color: rgba(58, 58, 58, 1);
+  color: rgba(173, 173, 173, 1);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.textLarge {
+  color: rgba(58, 58, 58, 1);
+}
+
+.activeText {
+  color: rgba(58, 58, 58, 1);
+}
+
+.activeTextLarge {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(244, 244, 244, 1); /* цвет и толщина границы */
+  border-radius: 6px;
 }

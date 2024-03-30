@@ -21,7 +21,6 @@ function App() {
   // const k = arrConstraint / data.length // коэфициент
 
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
-    debugger
     const newArr = [...arr] // Создаем копию исходного массива
     if (startMiddle === 0) {
       // Замена элементов с обоих концов массива
@@ -37,7 +36,7 @@ function App() {
         // Добавление центрального элемента elem в конец массива
         newArr.push(elem[Math.floor(elem.length / 2)])
       }
-      debugger
+
       return newArr
     }
     if (start < 0) {
@@ -55,7 +54,6 @@ function App() {
 
       return newArr
     } else if (elem.length + start > lastIndex) {
-      debugger
       const startForward = start + elem.length - arr.length
 
       // Замена элементов из начала массива newArr
@@ -71,7 +69,6 @@ function App() {
 
       return newArr
     } else {
-      debugger
       newArr.splice(start, deleteCount, ...elem)
       return newArr
     }
@@ -160,7 +157,6 @@ function App() {
         //   ? lastIndex - element.mainSkills.length
         //   : Math.round(i * k - element.mainSkills.length)
         const correctedStartIndex = startIndex < 0 ? startIndex + 1 : startIndex
-        debugger
         const newSkills = replaceArrayPart(
           allSkills,
           startMiddle,
@@ -168,7 +164,6 @@ function App() {
           arrSkills.length,
           ...arrSkills,
         )
-        debugger
         setFilteredSkills(newSkills)
       }
     }
