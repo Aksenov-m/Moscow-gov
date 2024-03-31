@@ -3,7 +3,14 @@ import styles from './PointList.module.css'
 import Circle from '../Circle/Circle'
 import LinesContainer from '../LinesContainer/LinesContainer'
 
-const PointList = ({ data, allSkills, handleClick, handleLargeClick }) => {
+const PointList = ({
+  data,
+  allSkills,
+  handleClick,
+  handleLargeClick,
+  circleStates,
+  circleStatesLarge,
+}) => {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
   const numPointsSmall = data.length // Количество точек внутренних
@@ -29,6 +36,7 @@ const PointList = ({ data, allSkills, handleClick, handleLargeClick }) => {
             angle={(Math.PI * 2 * index) / numPointsSmall} // Распределение точек по окружности
             radius={radiusSmall}
             handleClick={handleClick}
+            circleStates={circleStates[index]}
           />
         ))}
       </div>
@@ -45,6 +53,7 @@ const PointList = ({ data, allSkills, handleClick, handleLargeClick }) => {
             angle={(Math.PI * 2 * index) / numPointsLarge}
             radius={radiusLarge}
             handleClick={handleLargeClick}
+            circleStates={circleStatesLarge[index]}
           />
         ))}
       </div>

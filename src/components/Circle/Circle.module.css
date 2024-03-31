@@ -71,15 +71,15 @@
   transform: translate(-50%, -50%);
 }
 
-.textLarge {
-  color: rgba(58, 58, 58, 1);
-}
-
-.activeText {
+.textSmall {
   color: rgba(58, 58, 58, 1);
 }
 
 .activeTextLarge {
+  color: rgba(58, 58, 58, 1);
+}
+
+.activeText {
   background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(244, 244, 244, 1); /* цвет и толщина границы */
   border-radius: 6px;

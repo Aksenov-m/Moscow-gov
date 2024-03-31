@@ -11,19 +11,15 @@ function App() {
   const [data, setData] = useState([])
   const [allSkills, setAllSkills] = useState([])
   const [circleInfo, setCircleInfo] = useState({})
-  const [circleLargeInfo, setCircleLargeInfo] = useState({})
+  const [circleLargeInfo, setcircleLargeInfo] = useState({})
   const [filteredData, setFilteredData] = useState([])
   const [filteredSkills, setFilteredSkills] = useState([])
-  // let initialStates = (i) => Array(i).fill(false)
-  const [circleStates, setCircleStates] = useState(Array(10).fill(false)) // Массив состояний для каждого круга
+
   const arrConstraint = 18
   const lastIndex = 18 - 1
-  const [circleStatesLarge, setCircleStatesLarge] = useState(
-    Array(18).fill(false),
-  ) // Массив состояний для каждого круга
 
   // const k = arrConstraint / data.length // коэфициент
-  console.log(circleStatesLarge)
+
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
     const newArr = [...arr] // Создаем копию исходного массива
     if (startMiddle === 0) {
@@ -36,12 +32,11 @@ function App() {
       if (elem.length % 2 !== 0) {
         // Добавление центрального элемента elem в начало массива
         newArr.unshift(elem[Math.floor(elem.length / 2)])
+      } else {
+        // Добавление центрального элемента elem в конец массива
+        newArr.push(elem[Math.floor(elem.length / 2)])
       }
-      // else {
-      //   // Добавление центрального элемента elem в конец массива
-      //   newArr.push(elem[Math.floor(elem.length / 2)])
-      // }
-      debugger
+
       return newArr
     }
     if (start < 0) {
@@ -121,16 +116,7 @@ function App() {
     return matches ? parseFloat(matches[0]) : NaN // Возвращаем первое найденное числовое значение или NaN
   }
 
-  // const resetCircleStates = (setStates) => {
-  //   setStates(Array(setStates.length).fill(false))
-  // }
-
   function handleCircleClick(angle, index, e) {
-    setCircleStatesLarge(Array(circleStatesLarge.length).fill(false))
-    setCircleStates((prevStates) => {
-      const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
-      return newStates
-    })
     const clickedText = e.target.innerText // Получаем текст элемента, на который произошел клик
     const topValue = extractNumericValue(e.target.style.top) // Получаем значение top
     const leftValue = extractNumericValue(e.target.style.left) // Получаем значение left
@@ -145,23 +131,9 @@ function App() {
   }
 
   function handleCircleLargeClick(angle, index, e) {
-    setCircleStates(Array(circleStates.length).fill(false))
-    setCircleStatesLarge((prevStates) => {
-      const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
-      return newStates
-    })
-    // Удаление ключа 'active' из элементов в массиве filteredSkills, если он присутствует
-    const updatedFilteredSkills = filteredSkills.map((skill) => {
-      if (skill.hasOwnProperty('active')) {
-        const { active, ...rest } = skill // Разделяем свойства объекта, оставляя только те, которые не 'active'
-        return rest
-      }
-      return skill // Если ключ 'active' отсутствует, возвращаем объект без изменений
-    })
-
-    const clickedText = e.target.innerText
-    const topValue = extractNumericValue(e.target.style.top)
-    const leftValue = extractNumericValue(e.target.style.left)
+    const clickedText = e.target.innerText // Получаем текст элемента, на который произошел клик
+    const topValue = extractNumericValue(e.target.style.top) // Получаем значение top
+    const leftValue = extractNumericValue(e.target.style.left) // Получаем значение left
     const clickInfo = {
       angle: angle,
       index: index,
@@ -169,8 +141,21 @@ function App() {
       y: topValue,
       x: leftValue,
     }
-    setFilteredSkills(updatedFilteredSkills) // Устанавливаем новый массив без ключа 'active'
-    setCircleLargeInfo(clickInfo)
+    setcircleLargeInfo(clickInfo)
+  }
+
+  function handleCircleLargeClick(angle, index, e) {
+    const clickedText = e.target.innerText // Получаем текст элемента, на который произошел клик
+    const topValue = extractNumericValue(e.target.style.top) // Получаем значение top
+    const leftValue = extractNumericValue(e.target.style.left) // Получаем значение left
+    const clickInfo = {
+      angle: angle,
+      index: index,
+      text: clickedText,
+      y: topValue,
+      x: leftValue,
+    }
+    setcircleLargeInfo(clickInfo)
   }
 
   useEffect(() => {
@@ -218,8 +203,6 @@ function App() {
       <PointList
         data={filteredData}
         allSkills={filteredSkills}
-        circleStates={circleStates}
-        circleStatesLarge={circleStatesLarge}
         handleClick={handleCircleClick}
         handleLargeClick={handleCircleLargeClick}
       ></PointList>
