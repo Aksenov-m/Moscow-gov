@@ -22,8 +22,7 @@ function App() {
     Array(18).fill(false),
   ) // Массив состояний для каждого круга
 
-  // const k = arrConstraint / data.length // коэфициент
-  console.log(circleStatesLarge)
+  const k = arrConstraint / data.length // коэфициент
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
     const newArr = [...arr] // Создаем копию исходного массива
     if (startMiddle === 0) {
@@ -41,7 +40,6 @@ function App() {
       //   // Добавление центрального элемента elem в конец массива
       //   newArr.push(elem[Math.floor(elem.length / 2)])
       // }
-      debugger
       return newArr
     }
     if (start < 0) {
@@ -77,12 +75,6 @@ function App() {
       newArr.splice(start, deleteCount, ...elem)
       return newArr
     }
-  }
-
-  function searchArray() {
-    const i = circleLargeInfo.index
-
-    data.indexOf(i)
   }
 
   useEffect(() => {
@@ -142,6 +134,7 @@ function App() {
       x: leftValue,
     }
     setCircleInfo(clickInfo)
+    console.log(clickInfo)
   }
 
   function handleCircleLargeClick(angle, index, e) {
@@ -170,12 +163,13 @@ function App() {
       x: leftValue,
     }
     setFilteredSkills(updatedFilteredSkills) // Устанавливаем новый массив без ключа 'active'
+    debugger
     setCircleLargeInfo(clickInfo)
   }
 
   useEffect(() => {
     if (data.length > 0 && circleInfo.index !== undefined) {
-      const k = arrConstraint / data.length
+      // const k = arrConstraint / data.length
       const i = circleInfo.index
       const element = data[i]
       if (element) {
@@ -192,7 +186,7 @@ function App() {
           })),
         ]
         const startMiddle = Math.round(i * k)
-        const startIndex = Math.round(i * k - arrSkills.length / 2)
+        const startIndex = Math.round(startMiddle - arrSkills.length / 2)
         // i === 0
         //   ? lastIndex - element.mainSkills.length
         //   : Math.round(i * k - element.mainSkills.length)
@@ -209,9 +203,42 @@ function App() {
     }
   }, [circleInfo, data])
 
+  function searchArray(arr, large) {
+    const searchText = large.text
+
+    const result = arr.filter((item) => {
+      // Проверяем, присутствует ли искомый текст хотя бы в одном из массивов mainSkills или otherSkills данного объекта
+      return (
+        item.mainSkills.includes(searchText) ||
+        item.otherSkills.includes(searchText)
+      )
+    })
+
+    // Если найдены соответствующие объекты, добавляем ключ active: search для каждого объекта
+    const updatedResult = result.map((item) => ({
+      ...item,
+      search: true,
+    }))
+
+    return updatedResult
+  }
+  console.log(circleLargeInfo)
+
   useEffect(() => {
-    searchArray()
-  }, [circleLargeInfo, data])
+    const i = circleLargeInfo.index
+    const searcData = searchArray(data, circleLargeInfo)
+    const startMiddle = Math.round(i / k)
+    const startIndex = Math.round(startMiddle - searcData.length / 2)
+    const correctedStartIndex = startIndex < 0 ? startIndex + 1 : startIndex
+    const newData = replaceArrayPart(
+      data,
+      startMiddle,
+      correctedStartIndex,
+      searcData.length,
+      ...searcData,
+    )
+    setFilteredData(newData)
+  }, [circleLargeInfo])
 
   return (
     <>

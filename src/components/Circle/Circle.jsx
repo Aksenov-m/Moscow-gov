@@ -11,6 +11,7 @@ function Circle({
   index,
   active,
   circleStates,
+  search,
 }) {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
@@ -64,7 +65,9 @@ function Circle({
       className={`${styles.circle} ${styles[sizeClass]} ${styles[colorClass]} 
       ${circleStates ? `${(styles.green, styles.active)}` : ''} ${
         active && radius !== radiusSmall ? styles.redActive : ''
-      } ${circleStates && radius !== radiusSmall ? styles.activeLarge : ''}`}
+      } ${circleStates && radius !== radiusSmall ? styles.activeLarge : ''} ${
+        search ? styles.green : ''
+      }`}
       style={circleStyle}
       onClick={circleClick}
     >
@@ -77,7 +80,7 @@ function Circle({
         `}
         style={textPosition}
       >
-        {index} {text}
+        {text}
       </p>
     </div>
   )

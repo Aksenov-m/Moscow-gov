@@ -37,6 +37,7 @@ const PointList = ({
             radius={radiusSmall}
             handleClick={handleClick}
             circleStates={circleStates[index]}
+            search={typeof item === 'object' && item.search && true}
           />
         ))}
       </div>
