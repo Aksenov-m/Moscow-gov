@@ -25,17 +25,14 @@ function Circle({
   const centerX = 533.25 / 2 - center // координата центра по X
   const centerY = 533.25 / 2 - center // координата центра по Y
 
-  // const angleInDegrees = angle * (Math.PI / 180)
+  const top = centerX + circleRadius * Math.cos(angle)
+  const left = centerY + circleRadius * Math.sin(angle)
+
   const circleStyle = {
     position: 'absolute',
-    // top: `calc(50% + ${radius}px * ${Math.sin(
-    //   angleInDegrees,
-    // )} - ${radius}px * ${Math.sin(angleInDegrees)})`,
-    // left: `calc(50% + ${radius}px * ${Math.cos(
-    //   angleInDegrees,
-    // )} - ${radius}px * ${Math.cos(angleInDegrees)})`,
-    top: `calc(${centerX}px + ${circleRadius}px * ${Math.cos(angle)})`,
-    left: `calc(${centerY}px + ${circleRadius}px * ${Math.sin(angle)})`,
+
+    top: `${top}px`,
+    left: `${left}px`,
   }
 
   let textPosition = {}
@@ -55,8 +52,11 @@ function Circle({
       break
   }
 
+  // const x = circleRadius * Math.cos(angle)
+  // const y = circleRadius * Math.sin(angle)
+
   const circleClick = (e) => {
-    handleClick(angle, index, e) // Вызываем функцию handleClick с передачей угла и индекса текущего круга
+    handleClick(left, top, index, e) // Вызываем функцию handleClick с передачей угла и индекса текущего круга
     setClickedIndex(index) // Устанавливаем состояние clickedIndex в индекс текущего круга
   }
 

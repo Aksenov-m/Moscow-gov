@@ -21,6 +21,28 @@ function App() {
   const [circleStatesLarge, setCircleStatesLarge] = useState(
     Array(18).fill(false),
   ) // Массив состояний для каждого круга
+  const [coordinates, setCoordinates] = useState({})
+  // const radiusSmall = 135.315
+  // const radiusLarge = 266.625
+
+  // Функция для вычисления координат точки при клике внутри SVG
+  // function getSVGCoordinates(event) {
+  //   const svgRect = event.currentTarget.getBoundingClientRect()
+  //   const offsetX = ((event.clientX - svgRect.left) / svgRect.width) * 533.25
+  //   const offsetY = ((event.clientY - svgRect.top) / svgRect.height) * 533.25
+  //   console.log(`Координаты клика внутри SVG: x = ${offsetX}, y = ${offsetY}`)
+  //   return { x: offsetX, y: offsetY }
+  // }
+
+  useEffect(() => {
+    window.onload = () => {
+      const element = document.getElementById('roundContainer')
+      const centerX = element.offsetWidth / 2
+      const centerY = element.offsetHeight / 2
+
+      setCoordinates({ x: centerX, y: centerY })
+    }
+  }, [])
 
   const k = arrConstraint / data.length // коэфициент
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
@@ -117,27 +139,38 @@ function App() {
   //   setStates(Array(setStates.length).fill(false))
   // }
 
-  function handleCircleClick(angle, index, e) {
+  function handleCircleClick(x, y, index, e) {
+    const updatedFilteredData = filteredData.map((item) => {
+      if (item.hasOwnProperty('search')) {
+        const { search, ...rest } = item // Разделяем свойства объекта, оставляя только те, которые не 'search'
+        return rest
+      }
+      return item
+    })
+
+    // Если ключ 'search' отсутствует, возвращаем объект без изменений
+
     setCircleStatesLarge(Array(circleStatesLarge.length).fill(false))
     setCircleStates((prevStates) => {
       const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
       return newStates
     })
+
     const clickedText = e.target.innerText // Получаем текст элемента, на который произошел клик
-    const topValue = extractNumericValue(e.target.style.top) // Получаем значение top
-    const leftValue = extractNumericValue(e.target.style.left) // Получаем значение left
+
     const clickInfo = {
-      angle: angle,
       index: index,
       text: clickedText,
-      y: topValue,
-      x: leftValue,
+      x: x,
+      y: y,
     }
+    setFilteredData(updatedFilteredData) // Устанавливаем новый массив без ключа 'active'
     setCircleInfo(clickInfo)
     console.log(clickInfo)
   }
 
-  function handleCircleLargeClick(angle, index, e) {
+  function handleCircleLargeClick(x, y, index, e) {
+    // const { x, y } = getSVGCoordinates(e)
     setCircleStates(Array(circleStates.length).fill(false))
     setCircleStatesLarge((prevStates) => {
       const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
@@ -153,18 +186,18 @@ function App() {
     })
 
     const clickedText = e.target.innerText
-    const topValue = extractNumericValue(e.target.style.top)
-    const leftValue = extractNumericValue(e.target.style.left)
+    // const topValue = extractNumericValue(e.target.style.top)
+    // const leftValue = extractNumericValue(e.target.style.left)
     const clickInfo = {
-      angle: angle,
+      // angle: angle,
       index: index,
       text: clickedText,
-      y: topValue,
-      x: leftValue,
+      x: x,
+      y: y,
     }
     setFilteredSkills(updatedFilteredSkills) // Устанавливаем новый массив без ключа 'active'
-    debugger
     setCircleLargeInfo(clickInfo)
+    console.log(clickInfo)
   }
 
   useEffect(() => {
@@ -215,14 +248,17 @@ function App() {
     })
 
     // Если найдены соответствующие объекты, добавляем ключ active: search для каждого объекта
-    const updatedResult = result.map((item) => ({
-      ...item,
-      search: true,
-    }))
+    const updatedResult = result.map((item) => {
+      const skillsType = item.mainSkills.includes(searchText) ? 'main' : 'other'
+      return {
+        ...item,
+        search: true,
+        skills: skillsType,
+      }
+    })
 
     return updatedResult
   }
-  console.log(circleLargeInfo)
 
   useEffect(() => {
     const i = circleLargeInfo.index
@@ -243,6 +279,8 @@ function App() {
   return (
     <>
       <PointList
+        circleInfo={circleInfo}
+        circleLargeInfo={circleLargeInfo}
         data={filteredData}
         allSkills={filteredSkills}
         circleStates={circleStates}

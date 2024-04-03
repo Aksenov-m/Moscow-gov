@@ -10,6 +10,8 @@ const PointList = ({
   handleLargeClick,
   circleStates,
   circleStatesLarge,
+  circleInfo,
+  circleLargeInfo,
 }) => {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
@@ -20,7 +22,7 @@ const PointList = ({
   const centerYLarge = 533.25 / 2
   // debugger
   return (
-    <div className={styles.roundContainer}>
+    <div className={styles.roundContainer} id="roundContainer">
       {/* Рендерим круги маленького размера */}
       <div className={styles.circleContainerSmall}>
         {data.map((item, index) => (
@@ -61,7 +63,12 @@ const PointList = ({
       <div className={styles.outerCircle}></div>
       <div className={styles.innerCircle}></div>
       {/* Рендерим линии между рядами */}
-      <LinesContainer />
+      <LinesContainer
+        circleInfo={circleInfo}
+        circleLargeInfo={circleLargeInfo}
+        data={data}
+        allSkills={allSkills}
+      />
     </div>
   )
 }
