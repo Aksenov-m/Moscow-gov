@@ -15,18 +15,22 @@ function Circle({
 }) {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
+  const circleDiameter = 23.7
+  const circleDiameterLarge = 27.53
+
   const [clickedIndex, setClickedIndex] = useState(null) // Состояние для отслеживания индекса круга, на который произошел клик
   // const [isActive, setIsActive] = useState(false)
   // const [isActiveLarge, setIsActiveLarge] = useState(false)
   // Преобразуем угол в градусы
   const angleInDegrees = angle * (180 / Math.PI)
-  const center = 23.7 / 2
+  const center =
+    radius === radiusSmall ? circleDiameter / 2 : circleDiameterLarge / 2
   const circleRadius = radius
   const centerX = 533.25 / 2 - center // координата центра по X
   const centerY = 533.25 / 2 - center // координата центра по Y
 
-  const top = centerX + circleRadius * Math.cos(angle)
-  const left = centerY + circleRadius * Math.sin(angle)
+  const top = centerY + circleRadius * Math.cos(angle)
+  const left = centerX + circleRadius * Math.sin(angle)
 
   const circleStyle = {
     position: 'absolute',
@@ -34,6 +38,13 @@ function Circle({
     top: `${top}px`,
     left: `${left}px`,
   }
+
+  const x =
+    left +
+    (radius === radiusSmall ? circleDiameter / 2 : circleDiameterLarge / 2)
+  const y =
+    top +
+    (radius === radiusSmall ? circleDiameter / 2 : circleDiameterLarge / 2)
 
   let textPosition = {}
 
@@ -56,7 +67,7 @@ function Circle({
   // const y = circleRadius * Math.sin(angle)
 
   const circleClick = (e) => {
-    handleClick(left, top, index, e) // Вызываем функцию handleClick с передачей угла и индекса текущего круга
+    handleClick(x, y, index, e, angleInDegrees) // Вызываем функцию handleClick с передачей угла и индекса текущего круга
     setClickedIndex(index) // Устанавливаем состояние clickedIndex в индекс текущего круга
   }
 

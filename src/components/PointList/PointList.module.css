@@ -18,9 +18,11 @@
   position: relative;
   width: 533.25px; /* Ширина контейнера */
   height: 533.25px; /* Высота контейнера */
+  box-sizing: border-box;
 }
 
 .outerCircle {
+  box-sizing: border-box;
   z-index: -1;
   position: absolute;
   top: 0;

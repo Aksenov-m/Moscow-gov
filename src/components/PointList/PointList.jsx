@@ -12,6 +12,8 @@ const PointList = ({
   circleStatesLarge,
   circleInfo,
   circleLargeInfo,
+  coordinatesStart,
+  coordinates,
 }) => {
   const radiusSmall = 135.315
   const radiusLarge = 266.625
@@ -20,7 +22,7 @@ const PointList = ({
   const circleGap = 20 // Расстояние между кругами
   const centerYSmall = 533.25 / 2
   const centerYLarge = 533.25 / 2
-  // debugger
+
   return (
     <div className={styles.roundContainer} id="roundContainer">
       {/* Рендерим круги маленького размера */}
@@ -68,6 +70,8 @@ const PointList = ({
         circleLargeInfo={circleLargeInfo}
         data={data}
         allSkills={allSkills}
+        coordinatesStart={coordinatesStart}
+        coordinates={coordinates}
       />
     </div>
   )
