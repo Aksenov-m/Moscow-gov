@@ -43,11 +43,3 @@
   border-radius: 50%; /* Делаем круглым */
   border: 2.35px solid rgba(173, 173, 173, 1); /* Толщина и цвет границы */
 }
-
-/* .circleContainerSmall {
-  position: absolute;
-  width: 256.05px;
-  height: 256.05px;
-  top: 25%;
-  left: 25%;
-} */

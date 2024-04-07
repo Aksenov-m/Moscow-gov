@@ -31,28 +31,6 @@ function App() {
   const circleDiameter = 23.7
   const circleDiameterLarge = 27.53
 
-  // function getPositionValuesByClass(className) {
-  //   // Получаем все элементы с заданным классом
-  //   const elements = document.querySelectorAll('.' + styles[className])
-
-  //   // Создаем массив для хранения координат
-  //   const positions = []
-
-  //   // Проходимся по каждому элементу и получаем его координаты
-  //   elements.forEach((element) => {
-  //     const styles = window.getComputedStyle(element)
-  //     const topValue = parseFloat(
-  //       styles.getPropertyValue('top').replace('px', ''),
-  //     )
-  //     const leftValue = parseFloat(
-  //       styles.getPropertyValue('left').replace('px', ''),
-  //     )
-  //     positions.push({ x: leftValue, y: topValue })
-  //   })
-
-  //   return positions
-  // }
-
   function calculateNewItems(radius, skills) {
     return skills.map((item, index) => {
       const angle = ((2 * Math.PI) / skills.length) * index
@@ -113,7 +91,6 @@ function App() {
   const k = arrConstraint / data.length // коэфициент
   const kLarge = data.length / allSkills.length // коэфициент
   function replaceArrayPart(arr, startMiddle, start, deleteCount, ...elem) {
-    // debugger
     const newArr = [...arr] // Создаем копию исходного массива
     if (startMiddle === 0 || (startMiddle === 9 && arr.length === 10)) {
       // Замена элементов с обоих концов массива
@@ -203,10 +180,6 @@ function App() {
     return matches ? parseFloat(matches[0]) : NaN // Возвращаем первое найденное числовое значение или NaN
   }
 
-  // const resetCircleStates = (setStates) => {
-  //   setStates(Array(setStates.length).fill(false))
-  // }
-
   function handleCircleClick(x, y, index, e, angle) {
     const updatedFilteredData = filteredData.map((item) => {
       if (item.hasOwnProperty('search')) {
@@ -239,7 +212,6 @@ function App() {
   }
 
   function handleCircleLargeClick(x, y, index, e, angle) {
-    // const { x, y } = getSVGCoordinates(e)
     setCircleStates(Array(circleStates.length).fill(false))
     setCircleStatesLarge((prevStates) => {
       const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
@@ -255,8 +227,6 @@ function App() {
     })
 
     const clickedText = e.target.innerText
-    // const topValue = extractNumericValue(e.target.style.top)
-    // const leftValue = extractNumericValue(e.target.style.left)
     const clickInfo = {
       angle: angle,
       index: index,

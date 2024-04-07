@@ -12,11 +12,7 @@ const LinesContainer = ({
 }) => {
   const colorOrange = 'rgba(255, 122, 0, 1)'
   const colorViolet = 'rgba(143, 89, 185, 1)'
-  // const colorLine =
-  // const xStart = circleInfo.x || circleLargeInfo.x
-  // const yStart = circleInfo.y || circleLargeInfo.y
-  // Координаты начальной точки
-  // const startPoint = { xStart, yStart }
+
   const startPoint = {
     x: coordinatesStart.x,
     y: coordinatesStart.y,

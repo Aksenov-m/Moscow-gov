@@ -19,8 +19,7 @@ function Circle({
   const circleDiameterLarge = 27.53
 
   const [clickedIndex, setClickedIndex] = useState(null) // Состояние для отслеживания индекса круга, на который произошел клик
-  // const [isActive, setIsActive] = useState(false)
-  // const [isActiveLarge, setIsActiveLarge] = useState(false)
+
   // Преобразуем угол в градусы
   const angleInDegrees = angle * (180 / Math.PI)
   const center =
@@ -62,9 +61,6 @@ function Circle({
       textPosition = { left: '-40px', right: 'auto', top: 'auto' }
       break
   }
-
-  // const x = circleRadius * Math.cos(angle)
-  // const y = circleRadius * Math.sin(angle)
 
   const circleClick = (e) => {
     handleClick(x, y, index, e, angleInDegrees) // Вызываем функцию handleClick с передачей угла и индекса текущего круга
