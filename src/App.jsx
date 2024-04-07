@@ -181,6 +181,7 @@ function App() {
   }
 
   function handleCircleClick(x, y, index, e, angle) {
+    setCoordinates([])
     const updatedFilteredData = filteredData.map((item) => {
       if (item.hasOwnProperty('search')) {
         const { search, ...rest } = item // Разделяем свойства объекта, оставляя только те, которые не 'search'
@@ -212,6 +213,7 @@ function App() {
   }
 
   function handleCircleLargeClick(x, y, index, e, angle) {
+    setCoordinates([])
     setCircleStates(Array(circleStates.length).fill(false))
     setCircleStatesLarge((prevStates) => {
       const newStates = prevStates.map((state, i) => i === index) // Устанавливаем true только для круга с заданным индексом
@@ -321,13 +323,6 @@ function App() {
     const updatedProfessions = calculateNewItemsSmall(radiusSmall, newData)
     setCoordinates(updatedProfessions.filter((item) => item.search))
   }, [circleLargeInfo])
-
-  // useEffect(() => {
-  //   // const positions = getPositionValuesByClass('redActive')
-  //   // console.log(positions)
-  //   // setCoordinates(positions)
-
-  // }, [filteredSkills]) // Перерисовывать координаты при изменении данных
 
   return (
     <>

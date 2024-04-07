@@ -24,7 +24,6 @@ npm run dev
 ```sh
 npm run build
 ```
-* [Ссылка на сайт](https:https://aksenov-m.github.io/Moscow-gov/)
 
 
 ![informationImage](./src/informationImage.JPG)
