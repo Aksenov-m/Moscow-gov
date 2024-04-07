@@ -1,8 +1,30 @@
-# React + Vite
+# .ru
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Описание: 
+Тестовое задание для Правительство Москвы. Веб сервис отображающий взаимосвязь между компетенциями и связанными навыками. 
 
-Currently, two official plugins are available:
+Приложение написано на популярном фреймворке REACT.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Технологический стек
+* :point_right: React
+* :point_right: HTML
+* :point_right: CSS
+##### версия языка: :ru:
+
+
+### Запускает приложение в режиме разработки
+
+```sh
+npm run dev
+Откройте http://localhost:5173/ , чтобы просмотреть его в браузере.
+```
+
+### Сборка приложения
+
+```sh
+npm run build
+```
+* [Ссылка на сайт](https:https://aksenov-m.github.io/Moscow-gov/)
+
+
+![informationImage](./src/informationImage.JPG)
